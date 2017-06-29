@@ -1,0 +1,18 @@
+.MMM-uber {
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+
+.MMM-uber .badge {
+	padding-right: 10px;
+}
+
+.MMM-uber .uberButton span {
+	font-family: 'Helvetica Neue';
+	font-weight: 300;
+	font-size: 16pt;
+	font-color: #C0C0C8;
+	/*padding: 10px;*/
+	
+}
