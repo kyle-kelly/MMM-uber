@@ -45,6 +45,8 @@ Module.register("MMM-uber",{
 		this.uberSurge = null;
 
 		this.loaded = false;
+		Log.log("Sending CONFIG to node_helper.js in " + this.name);
+		Log.log("Payload: " + this.config)
 		this.sendSocketNotification('CONFIG', this.config);
 	},
 
@@ -55,7 +57,7 @@ Module.register("MMM-uber",{
 
 		// go through the time data to find the uberX product
 		if (FLAG === "TIME"){
-			Log.log("Time");
+			Log.log("Time:");
 			Log.log(result);
 			for (var i = 0, count = result.times.length; i < count ; i++) {
 
@@ -71,7 +73,7 @@ Module.register("MMM-uber",{
 
 		// go through the price data to find the uberX product
 		else if (FLAG === "PRICE"){
-			Log.log("Price");
+			Log.log("Price:");
 			Log.log(result);
 			for( var i=0, count = result.prices.length; i< count; i++) {
 				var rprice = result.prices[i];
@@ -121,11 +123,11 @@ Module.register("MMM-uber",{
 	socketNotificationReceived: function(notification, payload) {
 		Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
 		if (notification === "TIME") {
-			this.processUber("TIME", payload);
+			this.processUber("TIME", JSON.parse(payload));
 			this.updateDom(this.config.animationSpeed)
 		}
 		else if (notification === "PRICE") {
-			this.processUber("PRICE", payload);
+			this.processUber("PRICE", JSON.parse(payload));
 			this.loaded = true;
 			this.updateDom(this.config.animationSpeed);
 		}
