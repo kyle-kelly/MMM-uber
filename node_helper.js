@@ -17,7 +17,6 @@ module.exports = NodeHelper.create({
 		var self = this;
 		console.log("Starting node helper for: " + this.name);
 
-		this.started = false;
 		this.config = null;
 	},
 
@@ -37,13 +36,6 @@ module.exports = NodeHelper.create({
 		        'Accept-Language': 'en_US',
 		        'Content-Type': 'application/json'
 		    },
-		    /*
-		    data: {
-		        start_latitude: self.config.lat,
-		        start_longitude: self.config.lng,
-		        product_id: self.product_id
-		    },
-		    */
 		}, function (error, response, body) {
 			
 			if (!error && response.statusCode == 200) {
@@ -62,15 +54,6 @@ module.exports = NodeHelper.create({
 		        'Accept-Language': 'en_US',
 		        'Content-Type': 'application/json'
 		    },
-		    /*
-		    data: {
-		        start_latitude: self.config.lat,
-		        start_longitude: self.config.lng,
-
-		        end_latitude: self.config.lat,
-		        end_longitude: self.config.lng
-		    },
-		    */
 		}, function (error, response, body) {
 			
 			if (!error && response.statusCode == 200) {
@@ -81,18 +64,17 @@ module.exports = NodeHelper.create({
 			}
 		});
 
-		setTimeout(function() { this.getData(); }, this.config.updateInterval);
+		setTimeout(function() { self.getData(); }, this.config.updateInterval);
 		
 	},
 
 	socketNotificationReceived: function(notification, payload) {
 		//var self = this;
 		this.sendSocketNotification("Test", 0);
-		if (notification === 'CONFIG' /* && self.started == false */) {
+		if (notification === 'CONFIG') {
 			this.sendSocketNotification("Test", 1);
 			this.config = payload;
 			this.getData();
-			this.started = true;
 		}
 	}
 });

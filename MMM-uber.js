@@ -5,8 +5,9 @@
  * 
  * Shows the time and surge pricing for UberX
  *
- * By @derickson
+ * By Kyle Kelly
  * based on MagicMirror work by Michael Teeuw http://michaelteeuw.nl
+ * and by derickson https://github.com/derickson/MMderickson/tree/master/uber
  * MIT Licensed.
  */
 
@@ -16,8 +17,7 @@ Module.register("MMM-uber",{
 	defaults: {
 		lat: null,
 		lng: null,
-		product_id: null,
-		client_id: null,
+		ride_type: "uberX",
 		uberServerToken: null,
 
 		updateInterval: 5 * 60 * 1000, // every 5 minutes
@@ -63,7 +63,7 @@ Module.register("MMM-uber",{
 
 				var rtime = result.times[i];
 				
-				if(rtime.display_name === "uberX"){
+				if(rtime.display_name === this.config.ride_type){
 					// convert estimated seconds to minutes
 					this.uberTime = rtime.estimate / 60;
 					break;
@@ -78,7 +78,7 @@ Module.register("MMM-uber",{
 			for( var i=0, count = result.prices.length; i< count; i++) {
 				var rprice = result.prices[i];
 
-				if(rprice.display_name === "uberX"){
+				if(rprice.display_name === this.config.ride_type){
 					// grab the surge pricing
 					this.uberSurge = rprice.surge_multiplier;
 					break;
@@ -101,7 +101,7 @@ Module.register("MMM-uber",{
 		var uberText = document.createElement("span");
 
 		if(this.loaded) {
-			var myText = "UberX in "+ this.uberTime +" min ";
+			var myText = this.config.ride_type + " in "+ this.uberTime +" min ";
 			Log.log("ubersurge: " + this.uberSurge);
 			// only show the surge pricing if it is above 1.0
 			if(typeof this.uberSurge !== "undefined" && this.uberSurge > 1.0){
