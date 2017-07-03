@@ -1,6 +1,6 @@
 # MMM-uber
 
-A module for the [Magic Mirror](https://magicmirror.builders/). This module diplays ETA estimates and surge pricing for Uber.
+A module for the [Magic Mirror](https://magicmirror.builders/). This module displays ETA estimates and surge pricing for Uber.
 
 The module is loosely based on [another Uber module](https://github.com/derickson/MMderickson/tree/master/uber) that I could not get working due to a CORS error. 
 
