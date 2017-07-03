@@ -1,7 +1,7 @@
 'use strict';
 
 /* Magic Mirror
- * Module: MMM-lyft
+ * Module: MMM-uber
  *
  * By Kyle Kelly
  * MIT Licensed.
@@ -22,11 +22,6 @@ module.exports = NodeHelper.create({
 
 	getData: function() {
 		var self = this;
-
-		this.sendSocketNotification("Test", 2);
-		this.sendSocketNotification("LATITUDE", this.config.lat);
-		this.sendSocketNotification("LONGITUDE", this.config.lng);
-						
 		
 		request({
 			url: "https://api.uber.com/v1/estimates/time?start_latitude=" + this.config.lat + "&start_longitude=" + this.config.lng,
@@ -69,10 +64,7 @@ module.exports = NodeHelper.create({
 	},
 
 	socketNotificationReceived: function(notification, payload) {
-		//var self = this;
-		this.sendSocketNotification("Test", 0);
 		if (notification === 'CONFIG') {
-			this.sendSocketNotification("Test", 1);
 			this.config = payload;
 			this.getData();
 		}

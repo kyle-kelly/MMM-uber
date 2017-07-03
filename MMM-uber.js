@@ -46,7 +46,7 @@ Module.register("MMM-uber",{
 
 		this.loaded = false;
 		Log.log("Sending CONFIG to node_helper.js in " + this.name);
-		Log.log("Payload: " + this.config)
+		Log.log("Payload: " + this.config);
 		this.sendSocketNotification('CONFIG', this.config);
 	},
 
@@ -121,10 +121,10 @@ Module.register("MMM-uber",{
 	},
 
 	socketNotificationReceived: function(notification, payload) {
-		Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
+		//Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
 		if (notification === "TIME") {
 			this.processUber("TIME", JSON.parse(payload));
-			this.updateDom(this.config.animationSpeed)
+			this.updateDom(this.config.animationSpeed);
 		}
 		else if (notification === "PRICE") {
 			this.processUber("PRICE", JSON.parse(payload));
