@@ -1,5 +1,11 @@
 # MMM-uber
 
+A module for the [Magic Mirror](https://magicmirror.builders/). This module diplays ETA estimates and surge pricing for Uber.
+
+The module is loosely based on [another Uber module](https://github.com/derickson/MMderickson/tree/master/uber) that I could not get working due to a CORS error. 
+
+## Installation
+
 To install, clone this repository into your modules folder. Then add the following to your configuration file:
 ```
 {
@@ -13,7 +19,7 @@ To install, clone this repository into your modules folder. Then add the followi
 	}
 },
 ```
-The client ID and client secret are acquired through Uber by [registering as a devloper](https://developer.uber.com/). 
+The Uber server token is acquired through Uber by [registering as a devloper](https://developer.uber.com/). 
 
 ## Configuration Options
 
