@@ -1,6 +1,6 @@
 # MMM-uber
 
-A module for the [Magic Mirror](https://magicmirror.builders/). This module displays ETA estimates and surge pricing for Uber.
+A module for the [Magic Mirror](https://magicmirror.builders/). This module displays ETA and surge pricing for Uber.
 
 The module is loosely based on [another Uber module](https://github.com/derickson/MMderickson/tree/master/uber) that I could not get working due to a CORS error. 
 
@@ -28,4 +28,4 @@ The following properties can be configured:
 | Options | Description|
 | --- | --- |
 |```header```| Can be changed to any **string** or left **blank**: ```' '``` |
-| ```ride_type```| The ride type for time and cost estimates. <br> **Possible values:** ```'Pool'```, ```'uberXL'```, ```'SELECT'```, ```'BLACK'```, ```'SUV'```, ```'ASSIST'```, ```'WAV'```, ```'TAXI'```. <br> **Default value:** ```'uberX'```.|
+| ```ride_type```| The ride type for time and cost estimates. <br> **Possible values:** ```'POOL'```, ```'uberXL'```, ```'SELECT'```, ```'BLACK'```, ```'SUV'```, ```'ASSIST'```, ```'WAV'```, ```'TAXI'```. <br> **Default value:** ```'uberX'```.|
