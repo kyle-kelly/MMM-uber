@@ -1,6 +1,6 @@
 # MMM-uber
 
-![Alt]({{ site.url }}/img/uber-screenshot.png "A preview of the Uber module.")
+![Alt](https://github.com/kyle-kelly/MMM-uber/tree/master/img "A preview of the Uber module.")
 
 A module for the [Magic Mirror](https://magicmirror.builders/). This module displays ETA and surge pricing for Uber.
 
