@@ -44,10 +44,21 @@ Module.register("MMM-uber",{
 		this.uberTime = null;
 		this.uberSurge = null;
 
-		this.loaded = false;
+		this.time_loaded = null;
+		this.price_loaded = null;
+		this.dataID = null;
+
 		Log.log("Sending CONFIG to node_helper.js in " + this.name);
 		Log.log("Payload: " + this.config);
 		this.sendSocketNotification('CONFIG', this.config);
+		this.sendSocketNotification('DATA', null);
+		this.dataTimer();
+	},
+
+	// start interval timer to update data every 5 minutes
+	dataTimer: function() {
+		var self = this;
+		this.dataID = setInterval(function() { self.sendSocketNotification('DATA', null); }, this.config.updateInterval);
 	},
 
 	// unload the results from uber services
@@ -100,7 +111,7 @@ Module.register("MMM-uber",{
 
 		var uberText = document.createElement("span");
 
-		if(this.loaded) {
+		if(this.time_loaded && this.price_loaded) {
 			var myText = this.config.ride_type + " in "+ this.uberTime +" min ";
 			Log.log("ubersurge: " + this.uberSurge);
 			// only show the surge pricing if it is above 1.0
@@ -124,12 +135,22 @@ Module.register("MMM-uber",{
 		//Log.log(this.name + " received a socket notification: " + notification + " - Payload: " + payload);
 		if (notification === "TIME") {
 			this.processUber("TIME", JSON.parse(payload));
+			this.time_loaded = true;
 			this.updateDom(this.config.animationSpeed);
 		}
 		else if (notification === "PRICE") {
 			this.processUber("PRICE", JSON.parse(payload));
-			this.loaded = true;
+			this.price_loaded = true;
 			this.updateDom(this.config.animationSpeed);
+		}
+		else if (notification === "TIME_ERROR" || notification === "PRICE_ERROR") {
+			// Stop update intervals, clear vars and wait 5 minutes to try and get another token
+			clearInterval(this.dataID);
+			this.dataID = null;
+			this.time_loaded = false;
+			this.price_loaded = false;
+			this.updateDom(this.config.animationSpeed);
+			this.dataTimer();
 		}
 	}
 

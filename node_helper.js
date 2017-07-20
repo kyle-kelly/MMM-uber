@@ -37,7 +37,7 @@ module.exports = NodeHelper.create({
 				self.sendSocketNotification("TIME", body);
 			}
 			else {
-				self.sendSocketNotification("ERROR", "In TIME request with status code: " + response.statusCode);
+				self.sendSocketNotification("TIME_ERROR", "In TIME request with status code: " + response.statusCode);
 			}
 		});
 
@@ -55,17 +55,16 @@ module.exports = NodeHelper.create({
 				self.sendSocketNotification("PRICE", body);
 			}
 			else {
-				self.sendSocketNotification("ERROR", "In PRICE request with status code: " + response.statusCode);
+				self.sendSocketNotification("PRICE_ERROR", "In PRICE request with status code: " + response.statusCode);
 			}
-		});
-
-		setTimeout(function() { self.getData(); }, this.config.updateInterval);
-		
+		});		
 	},
 
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === 'CONFIG') {
 			this.config = payload;
+		}
+		else if (notification === "DATA" && this.config !== null){
 			this.getData();
 		}
 	}
