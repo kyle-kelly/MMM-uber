@@ -17,7 +17,7 @@ Module.register("MMM-uber",{
 	defaults: {
 		lat: null,
 		lng: null,
-		ride_type: "uberX",
+		ride_types: [ 'uberX' ],
 		uberServerToken: null,
 
 		updateInterval: 5 * 60 * 1000, // every 5 minutes
@@ -41,8 +41,8 @@ Module.register("MMM-uber",{
 		moment.locale(config.language);
 
 		// variables that will be loaded from service
-		this.uberTime = null;
-		this.uberSurge = null;
+		this.uberTimes = [];
+		this.uberSurges = [];
 
 		this.time_loaded = null;
 		this.price_loaded = null;
@@ -74,10 +74,14 @@ Module.register("MMM-uber",{
 
 				var rtime = result.times[i];
 				
-				if(rtime.display_name === this.config.ride_type){
-					// convert estimated seconds to minutes
-					this.uberTime = rtime.estimate / 60;
-					break;
+				// iterate through each ride type in config list
+	            for (var ride_idx = 0; ride_idx < this.config.ride_types.length; ride_idx++) {
+
+					if(rtime.display_name === this.config.ride_types[ride_idx]){
+						// convert estimated seconds to minutes
+						this.uberTimes[ride_idx] = rtime.estimate / 60;
+						Log.log("Uber time = " + this.uberTimes[ride_idx]);
+					}
 				}
 			}
 		}
@@ -89,10 +93,14 @@ Module.register("MMM-uber",{
 			for( var i=0, count = result.prices.length; i< count; i++) {
 				var rprice = result.prices[i];
 
-				if(rprice.display_name === this.config.ride_type){
-					// grab the surge pricing
-					this.uberSurge = rprice.surge_multiplier;
-					break;
+				// iterate through each ride type in config list
+	            for (var price_idx = 0; price_idx < this.config.ride_types.length; price_idx++) {
+
+					if(rprice.display_name === this.config.ride_types[price_idx]){
+						// grab the surge pricing
+						this.uberSurges[price_idx] = rprice.surge_multiplier;
+						Log.log("Uber surge = " + this.uberSurges[price_idx]);
+					}
 				}
 			}
 		}
@@ -102,32 +110,39 @@ Module.register("MMM-uber",{
 	getDom: function() {
 		var wrapper = document.createElement("div");
 
-		var uber = document.createElement("div");
-		uber.className = "uberButton";
-		
-		var uberIcon = document.createElement("img");
-		uberIcon.className = "badge";
-		uberIcon.src = "modules/MMM-uber/UBER_API_Badges_1x_22px.png";
+		// iterate through each ride type in config list
+        for (var element_idx = 0; element_idx < this.config.ride_types.length; element_idx++) {
 
-		var uberText = document.createElement("span");
+			var uber = document.createElement("div");
+			uber.className = "uberButton";
+			
+			var uberIcon = document.createElement("img");
+			uberIcon.className = "badge";
+			uberIcon.src = "modules/MMM-uber/UBER_API_Badges_1x_22px.png";
 
-		if(this.time_loaded && this.price_loaded) {
-			var myText = this.config.ride_type + " in "+ this.uberTime +" min ";
-			Log.log("ubersurge: " + this.uberSurge);
-			// only show the surge pricing if it is above 1.0
-			if(typeof this.uberSurge !== "undefined" && this.uberSurge > 1.0){
-				myText += " - " + this.uberSurge + "X surge pricing";
+			var uberText = document.createElement("span");
+
+			if(this.time_loaded && this.price_loaded) {
+				
+				var myText = this.config.ride_types[element_idx] + " in "+ this.uberTimes[element_idx] +" min ";
+				
+				// only show the surge pricing if it is above 1.0
+				if(typeof this.uberSurges[element_idx] !== "undefined" && this.uberSurges > 1.0){
+					myText += " - " + this.uberSurges[element_idx] + "X surge pricing";
+				}
+				uberText.innerHTML = myText;
+			} 
+			else {
+				// Loading message
+				uberText.innerHTML = "Checking Uber status ...";
 			}
-			uberText.innerHTML = myText;
-		} else {
-			// Loading message
-			uberText.innerHTML = "Checking Uber status ...";
-		}
 
-		uber.appendChild(uberIcon);
-		uber.appendChild(uberText);
+			uber.appendChild(uberIcon);
+			uber.appendChild(uberText);
+			
+			wrapper.appendChild(uber);
+		}
 		
-		wrapper.appendChild(uber);
 		return wrapper;
 	},
 
