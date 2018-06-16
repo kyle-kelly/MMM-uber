@@ -31,4 +31,4 @@ The following properties can be configured:
 | Options | Description|
 | --- | --- |
 |```header```| Can be changed to any **string** or left **blank**: ```' '``` |
-| ```ride_types```| The ride type for time and cost estimates. The latest release allows for multiple ride types to be displayed through one module. Add to the ```config: {}``` section. <br> **Possible values:** ```'POOL'```, ```'uberXL'```, ```'SELECT'```, ```'BLACK'```, ```'SUV'```, ```'ASSIST'```, ```'WAV'```, ```'TAXI'```. <br> **Default value:** ```'uberX'```. <br> **Examples:** ```ride_types: [ 'POOL' ]``` or ```ride_types: [ 'uberX', 'uberXL' ]```|
+| ```ride_types```| The ride type for time and cost estimates. The latest release allows for multiple ride types to be displayed through one module. Add to the ```config: {}``` section. <br> **Possible values:** ```'UberPool'```, ```'UberXL'```, ```'Select'```, ```'Black'```, ```'Black SUV'```. <br> **Default value:** ```'uberX'```. <br> **Examples:** ```ride_types: [ 'POOL' ]``` or ```ride_types: [ 'uberX', 'uberXL' ]```|
