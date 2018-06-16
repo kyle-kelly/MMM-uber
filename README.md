@@ -22,7 +22,7 @@ To install, clone this repository into your modules folder. Then add the followi
 	}
 },
 ```
-The Uber server token is acquired through Uber by [registering as a devloper](https://developer.uber.com/). 
+The Uber server token is acquired through Uber by [registering as a developer](https://developer.uber.com/). 
 
 ## Configuration Options
 
