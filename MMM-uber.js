@@ -17,7 +17,7 @@ Module.register("MMM-uber",{
 	defaults: {
 		lat: null,
 		lng: null,
-		ride_types: [ 'uberX' ],
+		ride_types: [ 'UberX' ],
 		uberServerToken: null,
 
 		updateInterval: 5 * 60 * 1000, // every 5 minutes
@@ -76,7 +76,7 @@ Module.register("MMM-uber",{
 				
 				// iterate through each ride type in config list
 	            for (var ride_idx = 0; ride_idx < this.config.ride_types.length; ride_idx++) {
-
+					
 					if(rtime.display_name === this.config.ride_types[ride_idx]){
 						// convert estimated seconds to minutes
 						this.uberTimes[ride_idx] = rtime.estimate / 60;
