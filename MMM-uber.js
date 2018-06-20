@@ -77,7 +77,7 @@ Module.register("MMM-uber",{
 				// iterate through each ride type in config list
 	            for (var ride_idx = 0; ride_idx < this.config.ride_types.length; ride_idx++) {
 
-					if(rtime.display_name === this.config.ride_types[ride_idx]){
+					if(rtime.display_name.toLowerCase() === this.config.ride_types[ride_idx].toLowerCase()){
 						// convert estimated seconds to minutes
 						this.uberTimes[ride_idx] = rtime.estimate / 60;
 						Log.log("Uber time = " + this.uberTimes[ride_idx]);
