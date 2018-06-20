@@ -24,7 +24,7 @@ module.exports = NodeHelper.create({
 		var self = this;
 		
 		request({
-			url: "https://api.uber.com/v1/estimates/time?start_latitude=" + this.config.lat + "&start_longitude=" + this.config.lng,
+			url: "https://api.uber.com/v1.2/estimates/time?start_latitude=" + this.config.lat + "&start_longitude=" + this.config.lng,
 			method: 'GET',
 			headers: {
 		        'Authorization': 'Token ' + this.config.uberServerToken,
@@ -42,7 +42,7 @@ module.exports = NodeHelper.create({
 		});
 
 		request({
-			url: "https://api.uber.com/v1/estimates/price?start_latitude=" + this.config.lat + "&start_longitude=" + this.config.lng + "&end_latitude=" + this.config.lat + "&end_longitude=" + this.config.lng,
+			url: "https://api.uber.com/v1.2/estimates/price?start_latitude=" + this.config.lat + "&start_longitude=" + this.config.lng + "&end_latitude=" + this.config.lat + "&end_longitude=" + this.config.lng,
 			method: 'GET',
 			headers: {
 				'Authorization': 'Token ' + this.config.uberServerToken,
