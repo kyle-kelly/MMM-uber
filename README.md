@@ -1,3 +1,5 @@
+# Deprecation Notice
+Unfortunatley, Uber has shut down their public API. This app is no longer funtional at the moment. 
 
 # MMM-uber
 
